@@ -39,6 +39,9 @@ public class Solution {
 	}
 	
 	private static void print(int size) {
+		System.out.println("Table Weights");
+		System.out.println("_____________");
+		
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				System.out.print(costTable[i][j] + ", ");

@@ -1,8 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 public class BruteForce {
 
@@ -12,35 +11,56 @@ public class BruteForce {
 	
 	void solve(int[][] cost) {
 		int size = cost.length;
-		ArrayList<Integer> answers = new ArrayList<Integer>();
-		int sum = 0, itr;
 		
+		Combo combinations = new Combo(size);
 		
-		ArrayList<Integer> copy = answers;
-		Collections.sort(answers);
-		int index = copy.indexOf(answers.get(1));
+		List<List<Integer>> combos = combinations.getCombo();
 		
-		System.out.print(answers.get(1) + "\n[ ");
-		for (int i = 0; i < size; i++) {
-			System.out.print( cost[cost.length - (index + 1)][i] + ", ");
+		int[] sums = getSums(combos, cost);
+		
+		int index = getSmallestSumIndex(sums);
+		
+		List<Integer> answer = combos.get(index);
+		
+		System.out.println("Cheapest Cost!");
+		System.out.println("______________\n");
+		
+		System.out.print("[ ");
+		for (int i = 0; i < answer.size() - 1; i++) {
+			System.out.print(answer.get(i) + ", ");
 		}
-		System.out.print(" ]");
+		System.out.print(answer.get(answer.size() - 1) + " ]\n");
+		
 	}
 	
-	ArrayList<Set<Integer>> combinations(int[][] cost) {
-		ArrayList<Set<Integer>> sets = new ArrayList<Set<Integer>>();
-		int size = cost.length;
-		int numCombo = size*size;
-		Set<Integer> current = null;
+	int[] getSums(List<List<Integer>> combo, int[][] cost) {
+		int[] sums = new int[combo.size()];
+		int sumIndex = 0;
+		int col = 0;
+		int row = 0;
 		
-		for (int i = 0; i < numCombo; i++) {
-			for (int j = i; j < size; j++) {
-				
+		for (List<Integer> aCombo : combo) {
+			for (int i = 0; i < aCombo.size() - 2; i++) {
+				row = aCombo.get(i);
+				col = aCombo.get(i + 1);
+				sums[sumIndex] += cost[row][col];
+			}
+			sumIndex++;
+		}
+
+		return sums;
+	}
+	
+	int getSmallestSumIndex(int[] sums) {
+		int index = 0;
+		
+		for (int i = 1; i < sums.length; i++) {
+			if (sums[index] > sums[i]){
+				index = i;
 			}
 		}
 		
-		
-		return sets;
+		return index;
 	}
 	
 }
