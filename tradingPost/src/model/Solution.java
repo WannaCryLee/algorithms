@@ -28,8 +28,8 @@ public class Solution {
 		divideConquer.solve(costTable);
 		final long endDivideTime = System.currentTimeMillis();
 		
-		System.out.println("\n\nBrute Force Time: " + (endBruteTime - startBruteTime));
-		System.out.println("Divde and Conquer Time: " + (endDivideTime - startDivideTime));
+		System.out.println("\n\nBrute Force Time: " + (endBruteTime - startBruteTime) + "ms");
+		System.out.println("Divde and Conquer Time: " + (endDivideTime - startDivideTime) + "ms");
 		
 		scan.close();
 	}
