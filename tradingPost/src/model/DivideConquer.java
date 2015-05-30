@@ -38,34 +38,33 @@ public class DivideConquer {
 			List<Integer> switchBoat = new ArrayList<Integer>();
 			switchBoat.add(-1); //Out of bounds node
 			List<Integer> stayInBoat = helperSolution(cost, post + 1, depth);
-			if ((depth + post) < size) {
-				switchBoat = helperSolution(cost, post + 1, depth + post);
-				addWeight(switchBoat, cost, depth, post);
-				switchBoat.add(post+1);
-			}
+			
+			switchBoat = helperSolution(cost, post + 1, post);
+			addWeight(switchBoat, cost, depth, post);
+			switchBoat.add(post+1);
+			
 			//addWeight(stayInBoat, cost, depth, post);
 			
 			
-			if (stayInBoat.get(0) + postSum.get(0) < switchBoat.get(0) + postSum.get(0) && switchBoat.get(0) != -1) {
-				syncSum(postSum, stayInBoat);
+			if (stayInBoat.get(0) < switchBoat.get(0) && switchBoat.get(0) != -1) {
+				syncPost(postSum, stayInBoat);
+				postSum.remove(0);
+				postSum.add(0, stayInBoat.get(0));
 				return postSum;
 			} else {
-				syncSum(postSum, switchBoat);
+				syncPost(postSum, switchBoat);
+				int prev = postSum.remove(0);
+				postSum.add(0, prev + switchBoat.get(0));
 				return postSum;
 			}
 		}
 		
 	}
 	
-	void syncSum(List<Integer> postSum, List<Integer> child) {
-		for (int i = 0; i < child.size(); i++) {
-			if (i == 0) {
-				int prev = postSum.remove(0);
-				postSum.add(i, prev + child.get(0));
-			} else {
-				if (!postSum.contains(child.get(i))) {
-					postSum.add(child.get(i));
-				}
+	void syncPost(List<Integer> postSum, List<Integer> child) {
+		for (int i = 1; i < child.size(); i++) {
+			if (!postSum.contains(child.get(i))) {
+				postSum.add(child.get(i));
 			}
 		}
 	}
