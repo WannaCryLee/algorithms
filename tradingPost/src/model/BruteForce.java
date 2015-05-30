@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BruteForce {
@@ -18,7 +17,14 @@ public class BruteForce {
 		
 		int[] sums = getSums(combos, cost);
 		
+		System.out.println("Sums");
+		for (int i = 0; i < sums.length; i++) {
+			System.out.print(sums[i] + ", ");
+		}
+		
 		int index = getSmallestSumIndex(sums);
+		
+		System.out.println("Index: " + index);
 		
 		List<Integer> answer = combos.get(index);
 		
@@ -44,8 +50,9 @@ public class BruteForce {
 				row = aCombo.get(i);
 				col = aCombo.get(i + 1);
 				sums[sumIndex] += cost[row][col];
-			}
-			sumIndex++;
+			} 
+			if (sums[sumIndex] != 0)
+				sumIndex++;
 		}
 
 		return sums;
@@ -55,7 +62,7 @@ public class BruteForce {
 		int index = 0;
 		
 		for (int i = 1; i < sums.length; i++) {
-			if (sums[index] > sums[i]){
+			if (sums[i] != 0 && sums[index] > sums[i]){
 				index = i;
 			}
 		}
