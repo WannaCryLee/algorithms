@@ -35,7 +35,7 @@ public class BruteForce {
 		for (int i = 0; i < answer.size() - 1; i++) {
 			System.out.print(answer.get(i) + ", ");
 		}
-		System.out.print(answer.get(answer.size() - 1) + " ]\n");
+		System.out.print(answer.get(answer.size() - 1) + " ] Cost: " + sums[index] + "\n");
 		
 	}
 	
@@ -46,13 +46,12 @@ public class BruteForce {
 		int row = 0;
 		
 		for (List<Integer> aCombo : combo) {
-			for (int i = 0; i < aCombo.size() - 2; i++) {
-				row = aCombo.get(i);
-				col = aCombo.get(i + 1);
+			for (int i = 0; i < aCombo.size() - 1; i++) {
+				row = aCombo.get(i) - 1;
+				col = aCombo.get(i + 1) - 1;
 				sums[sumIndex] += cost[row][col];
 			} 
-			if (sums[sumIndex] != 0)
-				sumIndex++;
+			sumIndex++;
 		}
 
 		return sums;
@@ -62,7 +61,7 @@ public class BruteForce {
 		int index = 0;
 		
 		for (int i = 1; i < sums.length; i++) {
-			if (sums[i] != 0 && sums[index] > sums[i]){
+			if (sums[index] > sums[i]){
 				index = i;
 			}
 		}
