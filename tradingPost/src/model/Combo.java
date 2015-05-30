@@ -16,14 +16,17 @@ public class Combo {
     }
     
     List<List<Integer>> getCombo() {
-    	 List<List<Integer>> result = new ArrayList<List<Integer>>();
-    	int[] array = new int[size-2];
+    	List<List<Integer>> result = new ArrayList<List<Integer>>();
+    	
+    	List<Integer> array = new ArrayList<Integer>();
     	
     	for (int i = 2; i < size; i++) {
-    		array[i-2] = i;
+    		array.add(i);
     	}
     	
-    	result = permute(array);
+    	//result = permute(array);
+    	result = displaySubsets(array);
+    	
     	
     	System.out.println("Printing all combinations");
     	System.out.println("_________________________");
@@ -67,4 +70,21 @@ public class Combo {
 
         return permutations;
     }
+    
+    List<List<Integer>> displaySubsets(List<Integer> sortedInts) {
+    	List<List<Integer>> result = new ArrayList<List<Integer>>();
+        int n = sortedInts.size();
+        long combinations = 1 << n;
+        for (int setNumber = 0; setNumber < combinations; setNumber++) {
+          List<Integer> aResult = new ArrayList<Integer>();
+          for (int digit = 0; digit < n; digit++) {
+            if ((setNumber & (1<<digit)) > 0) {
+              aResult.add(sortedInts.get(digit));
+            }
+          }
+          result.add(aResult);
+          //System.out.println(aResult.toString()+", ");
+        }
+        return result;
+      }
 }
