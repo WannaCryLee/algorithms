@@ -42,11 +42,22 @@ public class Solution {
 	
 	private static void print(int size) {
 		System.out.println("Table Weights");
-		System.out.println("_____________");
+		System.out.println("_____________\n");
 		
+		System.out.print("    ");
+		for (int i = 1; i <= size; i++) {
+			System.out.printf("%4d", i);
+		}
+		System.out.println();
+		System.out.print("    ");
+		for (int i = 1; i <= size; i++) {
+			System.out.print("----");
+		}
+		System.out.println();
 		for (int i = 0; i < size; i++) {
+			System.out.printf("%3d|", i + 1);
 			for (int j = 0; j < size; j++) {
-				System.out.print(costTable[i][j] + ", ");
+				System.out.printf("%4d", costTable[i][j]);
 			}
 			System.out.println();
 		}

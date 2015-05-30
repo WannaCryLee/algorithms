@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DivideConquer {
@@ -13,42 +14,65 @@ public class DivideConquer {
 	
 	void solve(int[][] cost) {
 		size = cost.length;
-		List<Integer> sum = new ArrayList<Integer>();
-		sum.add(0);
-		List<Integer> solution = helperSolution(sum, cost, 0, 0);
+		List<Integer> solution = helperSolution(cost, 1, 0);
+		int price = solution.remove(0);
+		Collections.sort(solution);
 		
-		System.out.print("Cheapest Price: " + solution.get(0) + "\nSolution: [ ");
-		for (int i = 1; i < solution.size() - 1; i++) {
+		System.out.print("Cheapest Price: " + price + "\nSolution: [ 1, ");
+		for (int i = 0; i < solution.size() - 1; i++) {
 			System.out.print(solution.get(i) + ", ");
 		}
-		System.out.print(solution.get(solution.size() - 1) + " ]");
+		System.out.print(size + " ]");
 	}
 
 	//TODO: Fix list. It is saving every post and sum instead of just a branches post and sum
-	List<Integer> helperSolution(List<Integer> sum, int[][] cost, int post, int depth) {
-		
-		if (post == size - 1 || depth == size - 1) {
-			sum.add(post);
-			addWeight(sum, cost, post, depth);
-			return sum;
+	List<Integer> helperSolution(int[][] cost, int post, int depth) {
+		List<Integer> postSum = new ArrayList<Integer>();
+		postSum.add(0); //Initializes sum to 0
+		if (post >= size - 1) {
+			postSum.add(post+1);
+			addWeight(postSum, cost, depth, post);
+			return postSum;
 		} else {
-			sum.add(post);
-			List<Integer> stayInBoat = helperSolution(sum, cost, post + 1, depth);
-			List<Integer> switchBoat = helperSolution(sum, cost, post, depth + 1);
+			//postSum.add(post+1);
+			List<Integer> switchBoat = new ArrayList<Integer>();
+			switchBoat.add(-1); //Out of bounds node
+			List<Integer> stayInBoat = helperSolution(cost, post + 1, depth);
+			if ((depth + post) < size) {
+				switchBoat = helperSolution(cost, post + 1, depth + post);
+				addWeight(switchBoat, cost, depth, post);
+				switchBoat.add(post+1);
+			}
+			//addWeight(stayInBoat, cost, depth, post);
 			
-			addWeight(stayInBoat, cost, post, depth);
-			addWeight(switchBoat, cost, post, depth);
 			
-			if ((stayInBoat.get(0) + cost[depth][post]) < (switchBoat.get(0) + cost[depth][post]))
-				return stayInBoat;
-			else
-				return switchBoat;
+			if (stayInBoat.get(0) + postSum.get(0) < switchBoat.get(0) + postSum.get(0) && switchBoat.get(0) != -1) {
+				syncSum(postSum, stayInBoat);
+				return postSum;
+			} else {
+				syncSum(postSum, switchBoat);
+				return postSum;
+			}
 		}
 		
 	}
 	
+	void syncSum(List<Integer> postSum, List<Integer> child) {
+		for (int i = 0; i < child.size(); i++) {
+			if (i == 0) {
+				int prev = postSum.remove(0);
+				postSum.add(i, prev + child.get(0));
+			} else {
+				if (!postSum.contains(child.get(i))) {
+					postSum.add(child.get(i));
+				}
+			}
+		}
+	}
+	
 	void addWeight(List<Integer> list, int[][] cost, int depth, int post) {
-		list.add(0, list.get(0) + cost[depth][post]);
+		int prev = list.remove(0);
+		list.add(0, prev + cost[depth][post]);
 	}
 	
 	
