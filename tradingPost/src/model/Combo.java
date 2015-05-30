@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class Combo {
 	
@@ -20,7 +21,7 @@ public class Combo {
     Set<Set<Integer>> getCombo() {
     	Set<Set<Integer>> result = new HashSet<Set<Integer>>();
     	
-    	Set<Integer> array = new HashSet<Integer>();
+    	Set<Integer> array = new TreeSet<Integer>();
     	
     	for (int i = 2; i < size; i++) {
     		array.add(i);
@@ -51,14 +52,14 @@ public class Combo {
     Set<Set<Integer>> powerSet(Set<Integer> originalSet) {
         Set<Set<Integer>> sets = new HashSet<Set<Integer>>();
         if (originalSet.isEmpty()) {
-            sets.add(new HashSet<Integer>());
+            sets.add(new TreeSet<Integer>());
             return sets;
         }
         List<Integer> list = new ArrayList<Integer>(originalSet);
         Integer head = list.get(0);
-        Set<Integer> rest = new HashSet<Integer>(list.subList(1, list.size()));
+        Set<Integer> rest = new TreeSet<Integer>(list.subList(1, list.size()));
         for (Set<Integer> set : powerSet(rest)) {
-            Set<Integer> newSet = new HashSet<Integer>();
+            Set<Integer> newSet = new TreeSet<Integer>();
             newSet.add(head);
             newSet.addAll(set);
             sets.add(newSet);
