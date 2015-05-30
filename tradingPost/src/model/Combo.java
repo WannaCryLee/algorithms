@@ -29,22 +29,10 @@ public class Combo {
     	
     	result = powerSet(array);
     	
-    	
-    	System.out.println("Printing all combinations");
-    	System.out.println("_________________________");
-    	
     	for (Set<Integer> combo : result) {
-    		System.out.print("[ ");
     		combo.add(1);
     		combo.add(size);
-    		for (int num : combo) {
-    			System.out.print(num + ", ");
-    		}
-    		
-    		System.out.println(" ]");
     	}
-    	System.out.println();
-    	
     	return result;
     }
     

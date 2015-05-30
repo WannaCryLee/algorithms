@@ -28,18 +28,14 @@ public class BruteForce {
 		
 		int index = getSmallestSumIndex(sums);
 		
-		System.out.println("Index: " + index);
-		
 		List<Integer> answer = listCombo.get(index);
-		
-		System.out.println("Cheapest Cost!");
-		System.out.println("______________\n");
-		
-		System.out.print("[ ");
+		System.out.println("Brute Force");
+		System.out.println("Cheapest Cost: " + sums[index]);
+		System.out.print("Solution: [ ");
 		for (int i = 0; i < answer.size() - 1; i++) {
 			System.out.print(answer.get(i) + ", ");
 		}
-		System.out.print(answer.get(answer.size() - 1) + " ] Cost: " + sums[index] + "\n");
+		System.out.print(answer.get(answer.size() - 1) + " ]" + "\n\n");
 		
 	}
 	

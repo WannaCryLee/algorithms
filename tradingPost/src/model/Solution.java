@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Solution {
-
+	
 	static int costTable[][];
 	
 	public static void main(String[] args) {
@@ -12,7 +12,7 @@ public class Solution {
 		System.out.println("What size table would you like?");
 		int size = scan.nextInt();
 		costTable = new int[size][size];
-		//BruteForce bruteForce = new BruteForce();
+		BruteForce bruteForce = new BruteForce();
 		DivideConquer divideConquer = new DivideConquer();
 		
 		setMatrix(size);
@@ -21,8 +21,15 @@ public class Solution {
 		
 		System.out.println("\n");
 		
-		//bruteForce.solve(costTable);
+		final long startBruteTime = System.currentTimeMillis();
+		bruteForce.solve(costTable);
+		final long endBruteTime = System.currentTimeMillis();
+		final long startDivideTime = System.currentTimeMillis();
 		divideConquer.solve(costTable);
+		final long endDivideTime = System.currentTimeMillis();
+		
+		System.out.println("\n\nBrute Force Time: " + (endBruteTime - startBruteTime));
+		System.out.println("Divde and Conquer Time: " + (endDivideTime - startDivideTime));
 		
 		scan.close();
 	}

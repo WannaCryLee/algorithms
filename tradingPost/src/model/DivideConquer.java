@@ -17,15 +17,14 @@ public class DivideConquer {
 		List<Integer> solution = helperSolution(cost, 1, 0);
 		int price = solution.remove(0);
 		Collections.sort(solution);
-		
-		System.out.print("Cheapest Price: " + price + "\nSolution: [ 1, ");
+		System.out.println("Divide and Conquer");
+		System.out.print("Cheapest Cost: " + price + "\nSolution: [ 1, ");
 		for (int i = 0; i < solution.size() - 1; i++) {
 			System.out.print(solution.get(i) + ", ");
 		}
 		System.out.print(size + " ]");
 	}
 
-	//TODO: Fix list. It is saving every post and sum instead of just a branches post and sum
 	List<Integer> helperSolution(int[][] cost, int post, int depth) {
 		List<Integer> postSum = new ArrayList<Integer>();
 		postSum.add(0); //Initializes sum to 0
@@ -34,7 +33,6 @@ public class DivideConquer {
 			addWeight(postSum, cost, depth, post);
 			return postSum;
 		} else {
-			//postSum.add(post+1);
 			List<Integer> switchBoat = new ArrayList<Integer>();
 			switchBoat.add(-1); //Out of bounds node
 			List<Integer> stayInBoat = helperSolution(cost, post + 1, depth);
@@ -42,9 +40,6 @@ public class DivideConquer {
 			switchBoat = helperSolution(cost, post + 1, post);
 			addWeight(switchBoat, cost, depth, post);
 			switchBoat.add(post+1);
-			
-			//addWeight(stayInBoat, cost, depth, post);
-			
 			
 			if (stayInBoat.get(0) < switchBoat.get(0) && switchBoat.get(0) != -1) {
 				syncPost(postSum, stayInBoat);
