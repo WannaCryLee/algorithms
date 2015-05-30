@@ -1,7 +1,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Combo {
 	
@@ -15,24 +17,24 @@ public class Combo {
     	size = newSize;
     }
     
-    List<List<Integer>> getCombo() {
-    	List<List<Integer>> result = new ArrayList<List<Integer>>();
+    Set<Set<Integer>> getCombo() {
+    	Set<Set<Integer>> result = new HashSet<Set<Integer>>();
     	
-    	List<Integer> array = new ArrayList<Integer>();
+    	Set<Integer> array = new HashSet<Integer>();
     	
     	for (int i = 2; i < size; i++) {
     		array.add(i);
     	}
     	
-    	result = displaySubsets(array);
+    	result = powerSet(array);
     	
     	
     	System.out.println("Printing all combinations");
     	System.out.println("_________________________");
     	
-    	for (List<Integer> combo : result) {
+    	for (Set<Integer> combo : result) {
     		System.out.print("[ ");
-    		combo.add(0, 1);
+    		combo.add(1);
     		combo.add(size);
     		for (int num : combo) {
     			System.out.print(num + ", ");
@@ -46,19 +48,22 @@ public class Combo {
     }
     
     
-    List<List<Integer>> displaySubsets(List<Integer> sortedInts) {
-    	List<List<Integer>> result = new ArrayList<List<Integer>>();
-        int n = sortedInts.size();
-        long combinations = 1 << n;
-        for (int setNumber = 0; setNumber < combinations; setNumber++) {
-          List<Integer> aResult = new ArrayList<Integer>();
-          for (int digit = 0; digit < n; digit++) {
-            if ((setNumber & (1<<digit)) > 0) {
-              aResult.add(sortedInts.get(digit));
-            }
-          }
-          result.add(aResult);
+    Set<Set<Integer>> powerSet(Set<Integer> originalSet) {
+        Set<Set<Integer>> sets = new HashSet<Set<Integer>>();
+        if (originalSet.isEmpty()) {
+            sets.add(new HashSet<Integer>());
+            return sets;
         }
-        return result;
-      }
+        List<Integer> list = new ArrayList<Integer>(originalSet);
+        Integer head = list.get(0);
+        Set<Integer> rest = new HashSet<Integer>(list.subList(1, list.size()));
+        for (Set<Integer> set : powerSet(rest)) {
+            Set<Integer> newSet = new HashSet<Integer>();
+            newSet.add(head);
+            newSet.addAll(set);
+            sets.add(newSet);
+            sets.add(set);
+        }
+        return sets;
+    }
 }

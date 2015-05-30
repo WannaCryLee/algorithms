@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class BruteForce {
 
@@ -13,9 +15,16 @@ public class BruteForce {
 		
 		Combo combinations = new Combo(size);
 		
-		List<List<Integer>> combos = combinations.getCombo();
+		Set<Set<Integer>> combos = combinations.getCombo();
+		List<List<Integer>> listCombo = new ArrayList<List<Integer>>();
 		
-		int[] sums = getSums(combos, cost);
+		for (Set<Integer> comb : combos) {
+			List<Integer> list = new ArrayList<Integer>(comb);
+			listCombo.add(list);
+		}
+		
+		
+		int[] sums = getSums(listCombo, cost);
 		
 		System.out.println("Sums");
 		for (int i = 0; i < sums.length; i++) {
@@ -26,7 +35,7 @@ public class BruteForce {
 		
 		System.out.println("Index: " + index);
 		
-		List<Integer> answer = combos.get(index);
+		List<Integer> answer = listCombo.get(index);
 		
 		System.out.println("Cheapest Cost!");
 		System.out.println("______________\n");
@@ -65,7 +74,6 @@ public class BruteForce {
 				index = i;
 			}
 		}
-		
 		return index;
 	}
 	
