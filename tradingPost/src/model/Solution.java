@@ -12,7 +12,8 @@ public class Solution {
 		System.out.println("What size table would you like?");
 		int size = scan.nextInt();
 		costTable = new int[size][size];
-		BruteForce bruteForce = new BruteForce();
+		//BruteForce bruteForce = new BruteForce();
+		DivideConquer divideConquer = new DivideConquer();
 		
 		setMatrix(size);
 		
@@ -20,7 +21,8 @@ public class Solution {
 		
 		System.out.println("\n");
 		
-		bruteForce.solve(costTable);
+		//bruteForce.solve(costTable);
+		divideConquer.solve(costTable);
 		
 		scan.close();
 	}

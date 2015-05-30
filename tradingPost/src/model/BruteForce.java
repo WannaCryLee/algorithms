@@ -26,11 +26,6 @@ public class BruteForce {
 		
 		int[] sums = getSums(listCombo, cost);
 		
-		System.out.println("Sums");
-		for (int i = 0; i < sums.length; i++) {
-			System.out.print(sums[i] + ", ");
-		}
-		
 		int index = getSmallestSumIndex(sums);
 		
 		System.out.println("Index: " + index);
