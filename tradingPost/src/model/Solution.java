@@ -14,6 +14,7 @@ public class Solution {
 		costTable = new int[size][size];
 		BruteForce bruteForce = new BruteForce();
 		DivideConquer divideConquer = new DivideConquer();
+		Dynamic dynamic = new Dynamic();
 		
 		setMatrix(size);
 		
@@ -27,9 +28,13 @@ public class Solution {
 		final long startDivideTime = System.currentTimeMillis();
 		divideConquer.solve(costTable);
 		final long endDivideTime = System.currentTimeMillis();
+		final long startDynamicTime = System.currentTimeMillis();
+		dynamic.solve(costTable);
+		final long endDynamicTime = System.currentTimeMillis();
 		
-		System.out.println("\n\nBrute Force Time: " + (endBruteTime - startBruteTime) + "ms");
-		System.out.println("Divde and Conquer Time: " + (endDivideTime - startDivideTime) + "ms");
+		System.out.println("\n\nBrute Force Time: " + (endBruteTime - startBruteTime) + " ms");
+		System.out.println("Divde and Conquer Time: " + (endDivideTime - startDivideTime) + " ms");
+		System.out.println("Dynamic Time: " + (endDynamicTime - startDynamicTime) + " ms");
 		
 		scan.close();
 	}

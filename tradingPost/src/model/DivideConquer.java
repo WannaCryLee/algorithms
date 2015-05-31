@@ -22,7 +22,7 @@ public class DivideConquer {
 		for (int i = 0; i < solution.size() - 1; i++) {
 			System.out.print(solution.get(i) + ", ");
 		}
-		System.out.print(size + " ]");
+		System.out.print(size + " ]\n\n");
 	}
 
 	List<Integer> helperSolution(int[][] cost, int post, int depth) {
