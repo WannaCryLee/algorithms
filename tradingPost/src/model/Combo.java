@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+//Combo class
 public class Combo {
 	
 	int size;
