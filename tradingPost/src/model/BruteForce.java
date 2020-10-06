@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 
 public class BruteForce {
-
+	
+	//Brute force method to solve cost combination given by 2d array.
 	public BruteForce() {
 		
 	}
